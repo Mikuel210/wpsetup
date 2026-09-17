@@ -1,0 +1,12 @@
+# TLS material — host-specific, generated locally (see README)
+cert/*
+
+# crash dumps / runtime junk
+core.*
+__pycache__/
+*.pyc
+*.log
+
+# pm2 runtime
+.pm2/
+js/rts.js.bak

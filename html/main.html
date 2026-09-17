@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ddl.io/vector-betatest/html/main.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 18 Jun 2020 22:24:12 GMT -->
+
+<!-- Mirrored from vector.techshop82.com/html/main.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 05 Jan 2024 07:09:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<title>Vector Setup</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../css/pterm.css">
+<link rel="stylesheet" type="text/css" href="../css/vecSetup.css">
+<link rel="icon" type="image/png" href="../images/ddl_logo_sm.png">
+</head>
+
+<body>
+<div class="vec-panel-container">
+  <div class="vec-panel vec-panel-dud">
+  </div>
+  <div class="vec-panel vec-panel-ui" style="flex: 1 0 50%">
+    <div class="vec-status">
+      <img id="iconBle" src="../images/fontawesome/bluetooth-brands.svg" src2="../images/common_icon_bluetooth_med.svg" class="vec-icon-active vec-icon vec-icon-sm">
+      <img id="iconWifi" src="../images/fontawesome/wifi-solid.svg" src2="../images/common_statusicon_wificonnect_med.svg" class="vec-icon vec-icon-ota">
+      <img id="iconOta" src="../images/fontawesome/cloud-download-alt-solid.svg" src2="../images/common_icon_updatecloud_sml.svg" class="vec-icon vec-icon-ota">
+      <img id="iconAccount" src="../images/fontawesome/user-circle-solid.svg" src2="../images/friends_icon_profileheadshot_sml.svg" class="vec-icon vec-icon-sm">
+      <img id="iconSettings" src="../images/fontawesome/sliders-h-solid.svg" src2="../images/icon_settings.svg" class="vec-icon vec-icon-sm">
+    </div>
+    <div id="containerIncompatible" class="vec-container vec-current" style="opacity: 1;">
+      <div class="vec-row"><img src="../images/chrome.png" class="chrome-img"></div>
+      <div class="vec-row"><p>Vector Web Setup uses Web Bluetooth which requires Google Chrome. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Bluetooth#Browser_compatibility">Mozilla's compatibility table</a> for details.
+	<br \><br \>If you are using Linux, go to chrome://flags and enable "Experimental web platform tools", then relaunch Chrome.</p></div>
+    </div>
+    <div id="containerDiscover" class="vec-container" icon="iconBle">
+      <div id="wpsetupPatchNote" style="margin:0 0 12px 0;padding:10px 12px;border:1px solid #4caf50;border-radius:8px;background:rgba(76,175,80,.08);font-size:13px;line-height:1.5;text-align:left;">patched local mirror for firmware 2.0.1.6086ap: crash-proof status parsing, status/wifi retries with manual ssid fallback. if wifi scan stalls, use custom ssid on 2.4ghz.</div>
+      <div id="discoverFirstTime">
+        <div class="vec-instruction"><img src="../images/onboarding_icon_plugincharger_med.svg" class="vec-card"><div><span>1. Place Vector on his charger.</span></div></div>
+        <div class="vec-instruction"><img src="../images/onboarding_icon_pressbackpack_med.svg" class="vec-card"><div><span>2. Double press his button then press "PAIR WITH VECTOR."</span></div>
+  	</div>
+      </div>
+      <div id="discoverReconnect" class="vec-hidden">
+        <div class="vec-instruction"><div><span>Vector has disconnected. If you were just downloading an OTA onto Vector, this usually means the bot has finished downloading the update. When he is done rebooting, pair the bot again by pressing "PAIR WITH VECTOR".</span></div></div>
+      </div>
+      <div class="vec-row">
+        <input type="button" id="btnDiscoverVector" value="Pair with Vector" class="vec-btn"/> 
+      </div>
+    </div>
+    <div id="containerLoading" class="vec-container">
+      <div class="vec-spinner-container">
+        <div class="vec-spinner">
+          <div class="vec-spinner-inner"></div>
+        </div>
+      </div>
+    </div>
+    <div id="containerEnterPin" class="vec-container">
+      <input type="text" id="txtPin" value="" class="vec-field" placeholder="000000"/><br>
+      <input type="checkbox" id="checkboxEnableAutoFlow" name="enableAutoFlow" value="autoFlow" checked>Enable auto-setup flow (keep this checked).<br>
+      <input type="button" id="btnEnterPin" value="Enter Pin" class="vec-field"/>
+    </div>
+    <div id="containerWifi" class="vec-container" icon="iconWifi">
+      <div id="wifiConnectErrorLabel" class="vec-error vec-hidden">Error trying to connect Vector to wifi.</div><br>
+      <div id="wifiScanTable" class="vec-table"></div><br><br>
+      <div class="vec-format"><span id="btnCustomWifi" class="vec-link">Don't see your network? Click to join custom.</span></div>
+    </div>
+    <div id="containerWifiConfig" class="vec-container">
+      <input type="text" id="txtWifiSsid" value="" class="vec-field vec-default" placeholder="ssid"/><br>
+      <input type="password" id="txtWifiPw" value="" class="vec-field vec-default" placeholder="password"/><br>
+      <input type="button" id="btnConnectWifi" value="Connect Vector to WiFi" class="vec-field"/>
+    </div>
+    <div id="containerVersionError" class="vec-container" icon="iconAccount" align="center">
+	<p>The firmware version does not match v1.8.1.6051, which is what this site is designed for. Please follow the wire-pod instructions carefully.</p><br \><br \>
+	<a href="../vector-epod-setup.html">Return to first page</a>
+    </div>
+    <div id="containerAccount" class="vec-container" icon="iconAccount" align="center">
+        <div id="accountErrorLabel" class="vec-error vec-hidden">Error.</div>
+        <input type="button" id="btnConnectCloud" value="Activate" class="vec-field"/><br>
+    </div>
+    <div id="containerSettings" class="vec-container" icon="iconSettings">
+      <span>Choose a timezone</span><br>
+      <select id="selectTimeZone" value="" class="vec-field">
+        <option value="Pacific/Honolulu">Pacific/Honolulu</option>
+        <option value="America/Juneau">America/Juneau</option>
+        <option value="America/Los_Angeles">America/Los_Angeles</option>
+        <option value="America/Phoenix">America/Phoenix</option>
+        <option value="America/Denver">America/Denver</option>
+        <option value="America/Lima">America/Lima</option>
+        <option value="America/Chicago">America/Chicago</option>
+        <option value="America/Bogota">America/Bogota</option>
+        <option value="America/New_York">America/New_York</option>
+        <option value="America/Argentina/Buenos_Aires">America/Argentina/Buenos_Aires</option>
+        <option value="America/Santiago">America/Santiago</option>
+        <option value="America/Sao_Paolo">America/Sao_Paolo</option>
+        <option value="America/St_Johns">America/St_Johns</option>
+        <option value="GMT">GMT</option>
+        <option value="Europe/Lisbon">Europe/Lisbon</option>
+        <option value="Europe/London">Europe/London</option>
+        <option value="Europe/Paris">Europe/Paris</option>
+        <option value="Europe/Athens">Europe/Athens</option>
+        <option value="Europe/Istanbul">Europe/Istanbul</option>
+        <option value="Europe/Moscow">Europe/Moscow</option>
+        <option value="Africa/Lagos">Africa/Lagos</option>
+        <option value="Africa/Harare">Africa/Harare</option>
+        <option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option>
+        <option value="Asia/Dubai">Asia/Dubai</option>
+        <option value="Asia/Tehran">Asia/Tehran</option>
+        <option value="Asia/Karachi">Asia/Karachi</option>
+        <option value="Asia/Kolkata">Asia/Kolkata</option>
+        <option value="Asia/Dhaka">Asia/Dhaka</option>
+        <option value="Asia/Bangkok">Asia/Bangkok</option>
+        <option value="Asia/Jakarta">Asia/Jakarta</option>
+        <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
+        <option value="Asia/Singapore">Asia/Singapore</option>
+        <option value="Asia/Manila">Asia/Manila</option>
+        <option value="Asia/Seoul">Asia/Seoul</option>
+        <option value="Asia/Tokyo">Asia/Tokyo</option>
+        <option value="Australia/Perth">Australia/Perth</option>
+        <option value="Australia/Darwin">Australia/Darwin</option>
+        <option value="Australia/Adelaide">Australia/Adelaide</option>
+        <option value="Australia/Brisbane">Australia/Brisbane</option>
+        <option value="Australia/Sydney">Australia/Sydney</option>
+        <option value="Australia/Auckland">Australia/Auckland</option>
+      </select> <br><br>
+      <span>Choose temperature unit</span><br>
+      <select id="selectTemperature" value="" class="vec-field">
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="celsius">Celsius</option>
+      </select> <br><br>
+      <span>Choose distance system</span><br>
+      <select id="selectDistance" value="" class="vec-field">
+        <option value="imperial">Imperial</option>
+        <option value="metric">Metric</option>
+      </select> <br><br>
+      <!-- <input type="checkbox" id="checkboxEnableAlexa" name="enableAlexa" value="ankiAlexa">Enable Amazon Alexa. <br>
+      <input type="checkbox" id="checkboxDataAnalytics" name="dataAnalytics" value="ankiLog">Allow Digital Dream Labs to upload anonymized logs to improve Vector. <br><br>  -->
+      <input type="button" id="btnFinishSetup" value="Save Settings" class="vec-field"/> 
+    </div>
+    <div id="containerOta" class="vec-container" icon="iconOta">
+      <div id="otaErrorLabel" class="vec-error vec-hidden">Error while updating Vector.</div><br>
+
+      Updating Vector...<br>
+      <div id="progressBarOta" class="vec-progress-bar">
+        <div class="vec-progress-bar-fill"></div>
+        <div class="vec-progress-bar-mask"></div>
+        <div class="vec-progress-bar-border"></div>
+      </div>
+      <input type="button" id="btnTryAgain" value="Try Again" class="vec-field vec-hidden"/>
+    </div>
+    <div id="containerComplete" class="vec-container">
+        <img id="iconComplete" src="../images/statlog_icon_checkmark_success_mini.svg" class="vec-complete"><br>
+        <p>Vector setup is complete!</p>
+    </div>
+    <div id="containerOtaComplete" class="vec-container">
+        <p>Update completed. You may now close this page..</p><br>
+        <input type="button" id="btnDiscoverVectorAgain" value="Pair with Vector" class="vec-btn"/> 
+    </div>
+
+    <div id="boxVectorStatus" class="vec-info vec-hidden">
+      <div class="vec-info-box">
+        <div class="vec-info-title"><img id="iconBle" src="../images/fontawesome/bluetooth-brands.svg" class="vec-status-icon"><span id="vecStatusTitle"></span></div>
+        <div id="vecInfoWifi" class="vec-info-row"><img src="../images/fontawesome/wifi-solid.svg" class="vec-status-icon"><span id="vecStatusSsid"></span></div>
+        <div id="vecInfoBuild" class="vec-info-row"></div>
+        <div id="vecInfoEsn" class="vec-info-row"></div>
+      </div>
+      <div id="boxStatusLogs" class="vec-info-box vec-hidden">
+        <div id="btnDownloadLogs" class="vec-link">Download Logs</div>
+        <div id="panelLogs" class="vec-hidden">
+          Downloading logs...
+          <div id="progressBarLogs" class="vec-progress-bar vec-sm">
+            <div class="vec-progress-bar-fill"></div>
+            <div class="vec-progress-bar-mask"></div>
+            <div class="vec-progress-bar-border"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vec-ui-footer">
+      <div class="vec-ui-footer-side">
+        <img src="https://i0.wp.com/techshop82.com/wp-content/uploads/2022/06/TS82_logo.png">
+      </div>
+      <div class="vec-ui-footer-middle">
+        <span id="copyright"></span>
+      </div>
+      <div class="vec-ui-footer-side">
+        <img src="../images/VectorLogo.svg"> 
+      </div>
+    </div>
+  </div>
+
+  <div class="vec-shell vec-panel" style="flex:0;">
+    <div class="pterm-main">
+      <div class="pterm-line">
+        <div class="pterm-prompt">$
+        </div>
+        <div class="pterm-row pterm-current">
+          <span class="pterm-text"></span>
+          <div class="pterm-cursor">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jquery.min.3.3.1.js"></script>
+<script src="../js/env/endpoints.js"></script>
+<script src="../js/pterm.js"></script>
+<script src="../js/rts.js"></script>
+<script src="../js/sodium.js" async></script>
+<script>
+  $(()=>{
+    var date = new Date();
+    document.getElementById("copyright").innerHTML ="© "+date.getFullYear()+" TechShop82. Icons used under CC 4.0 License , <a href='https://fontawesome.com/license/' target='_blank'>Font Awesome.</a>"
+  })
+  
+</script>
+</body>
+
+
+<!-- Mirrored from ddl.io/vector-betatest/html/main.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 18 Jun 2020 22:24:35 GMT -->
+
+<!-- Mirrored from vector.techshop82.com/html/main.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 05 Jan 2024 07:09:41 GMT -->
+</html>
