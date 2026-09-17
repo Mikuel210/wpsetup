@@ -1,4 +1,7 @@
-# wpsetup local mirror
+# wpsetup patched for escapepod firmware
+
+> [!NOTE]
+> Vibepatched by Hermes, I haven't reviewed the code but works on my machine
 
 Self-hosted mirror of [wpsetup.keriganc.com](https://wpsetup.keriganc.com) —
 the web-based Vector setup tool for [wire-pod](https://github.com/kercre123/wire-pod).
